@@ -122,7 +122,7 @@ function JournalEditor(props) {
 					<DatePicker excludeDate={(date) => date > new Date()} value={date} placeholder="Entry date" clearable={false} variant="unstyled" onChange={dateChangeHandler}/>
 					{score && moods && 
 						<div className="mood-stuff">
-								<div>Mood Score: {score}</div>
+								<div>Mood Score: {score}/5</div>
 								<div>Emotions: {moods.join(', ')}</div>
 						</div>
 					}
