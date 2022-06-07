@@ -1,0 +1,46 @@
+.stats-view {
+	padding: 3rem 4rem;
+}
+
+.stats-title {
+	font-size: 2.8rem;
+	font-weight: bold;
+}
+
+
+.widget-xl {
+	width: 95%;
+	margin: 0 auto;
+	margin-top: 4rem;
+}
+.widget-xl h1 {
+	font-size: 2.4rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+}
+.widget-xl p {
+	font-size: 1.6rem;
+}
+.mood-pie {
+	max-width: 40rem;
+	text-align: left;
+	margin-left: 5rem;
+	margin-bottom: 4rem;
+}
+
+.yearGrid {
+	column-width: 1rem;
+	column-gap: 15px;
+	break-inside: avoid;
+}
+
+.pixel {
+	width: 1.8rem;
+	height: 1.8rem;
+	margin: 4px;
+	border-radius: 3px;
+	break-inside: avoid;
+}
+.pixel:first-child {
+	margin-top: 0;
+}
