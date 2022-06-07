@@ -8,9 +8,6 @@ import { DatePicker } from '@mantine/dates';
 import Backend from "../Backend";
 import { TrashIcon, Cross1Icon } from "@modulz/radix-icons";
 
-import Sentiment from 'sentiment';
-const sentiment = new Sentiment();
-
 function JournalEditor(props) {
 
 	// const [tags, setTags] = useState(['React', 'Angular', 'Svelte', 'Vue']);
@@ -52,7 +49,6 @@ function JournalEditor(props) {
 	}
 
 	function journalTextAreaHandler(e) {
-		console.log(sentiment.analyze(e.target.value));
 		updateEntry({content: e.target.value})
 	}
 
