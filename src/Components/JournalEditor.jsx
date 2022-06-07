@@ -36,7 +36,7 @@ function JournalEditor(props) {
 	const [moods, setMoods] = useState(props.entry.moods);
 	const [score, setScore] = useState(props.entry.score);
 
-	// Resize text area
+	// Setup all states dependent on props and resize text area
 	useEffect(() => {
 		textareaRef.current.focus()
 		textareaRef.current.value = props.entry.content
@@ -44,6 +44,8 @@ function JournalEditor(props) {
 		titleInputRef.current.value = props.entry.title
 		setDate(Backend.timestampToDate(props.entry.date))
 		setSelectedTags(props.entry.tags)
+		setMoods(props.entry.moods)
+		setScore(props.entry.score)
 	}, [props.entry])
 
 	// Change Handlers
@@ -122,7 +124,7 @@ function JournalEditor(props) {
 				<div className="journal__heading-text">
 					<TextInput ref={titleInputRef} className="journal__heading-title" onChange={titleChangeHandler} placeholder="Entry Title"/>
 					<DatePicker excludeDate={(date) => date > new Date()} value={date} placeholder="Entry date" clearable={false} variant="unstyled" onChange={dateChangeHandler}/>
-					{score && 
+					{score && moods && 
 						<div className="mood-stuff">
 								<div>Mood Score: {score}</div>
 								<div>Emotions: {moods.join(', ')}</div>
