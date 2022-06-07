@@ -3,7 +3,7 @@ import { useFirestore, useFirestoreCollectionData } from 'reactfire';
 import Textarea from 'react-expanding-textarea'
 import { resize } from 'react-expanding-textarea'
 import { updateDoc, doc, query, orderBy, collection, addDoc, deleteDoc } from 'firebase/firestore';
-import { TextInput, MultiSelect, ActionIcon, Tooltip } from "@mantine/core";
+import { TextInput, MultiSelect, ActionIcon, Tooltip, Button } from "@mantine/core";
 import { DatePicker } from '@mantine/dates';
 import Backend from "../Backend";
 import { TrashIcon, Cross1Icon } from "@modulz/radix-icons";
@@ -33,6 +33,8 @@ function JournalEditor(props) {
 	const titleInputRef = useRef(null)
 	const tagsInputRef = useRef(null)
 	const [date, setDate] = useState(null);
+	const [moods, setMoods] = useState(props.entry.moods);
+	const [score, setScore] = useState(props.entry.score);
 
 	// Resize text area
 	useEffect(() => {
@@ -77,6 +79,31 @@ function JournalEditor(props) {
 		props.onDelete();
 	}
 
+	const onClickSave = () => {
+		Backend.getMoodScores(textareaRef.current.value, (data) => {
+			// Get sentiment score
+			let sentimentScore = data.sentiment.document.score;
+			sentimentScore = (sentimentScore + 1)/2;
+			sentimentScore = sentimentScore * 10 / 2;
+			sentimentScore = parseFloat(sentimentScore.toFixed(2))
+
+			// Get emotion list
+			let emotionScores = data.emotion.document.emotion;
+			let emotionList = [];
+			emotionScores = Object.entries(emotionScores)
+			emotionScores.sort((a, b) => (a[1] < b[1]) ? 1 : -1)
+			for (const [emotion, score] of emotionScores) {
+				if (score > 0.2) {
+					emotionList.push(emotion)
+				}
+			}
+			updateEntry({moods: emotionList});
+			updateEntry({score: sentimentScore});
+			setMoods(emotionList);
+			setScore(sentimentScore);
+		})
+	}
+
 	return (
 		<div className="journal">
 			<div className="button--close" onClick={() => props.onClose()}>  {/* Mobile Only Button */}
@@ -95,10 +122,12 @@ function JournalEditor(props) {
 				<div className="journal__heading-text">
 					<TextInput ref={titleInputRef} className="journal__heading-title" onChange={titleChangeHandler} placeholder="Entry Title"/>
 					<DatePicker excludeDate={(date) => date > new Date()} value={date} placeholder="Entry date" clearable={false} variant="unstyled" onChange={dateChangeHandler}/>
-					<div className="mood-stuff">
-						<div>Mood Score: 7/10</div>
-						<div>Emotions: Sad, Anger</div>
-					</div>
+					{score && 
+						<div className="mood-stuff">
+								<div>Mood Score: {score}</div>
+								<div>Emotions: {moods.join(', ')}</div>
+						</div>
+					}
 				</div>
 			</div>
 			{allTags && <MultiSelect ref={tagsInputRef}
@@ -122,6 +151,7 @@ function JournalEditor(props) {
 					ref={textareaRef}
 				/>
 			</div>
+			<Button onClick={onClickSave}>Save</Button>
 		</div>
 	);
 }

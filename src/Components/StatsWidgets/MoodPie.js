@@ -1,47 +1,51 @@
-import { PieChart } from 'react-minimal-pie-chart';
-import Backend from '../../Backend';
+import React from 'react'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Pie } from 'react-chartjs-2'
 
-function MoodPie(props) {
+ChartJS.register(ArcElement, Tooltip, Legend)
 
-	var moodCounts = {}
-	for (let entry of props.entries) {
-		if (moodCounts[entry.mood]) {
-			moodCounts[entry.mood] += 1
-		} else {
-			moodCounts[entry.mood] = 1
+export const options = {
+	responsive: true,
+	plugins: {
+		title: {
+			display: true,
+			text: 'Pie chart of all Emotions'
 		}
 	}
+}
 
-	// console.log(Object.entries(moodCounts));
-	// const mapped = Object.entries(moodCounts).map((mood) => (
-	// 	{title: mood[0], label: mood[0], value: mood[1], color: Backend.colorFromMood[parseInt(mood[0]-1)]}
-	// ))
-	// console.log(mapped);
+function MoodPie(props) {
+	let moodList = props.entries.map((entry) => entry.moods)
+	let moodDict = {};
+	for (const moodArr of moodList) {
+		for (const mood of moodArr) {
+			if (moodDict[mood]) {
+				moodDict[mood] += 1;
+			} else {
+				moodDict[mood] = 1;
+			}
+		}
+	}
+	let dataset = [moodDict['joy'], moodDict['sadness'], moodDict['anger'], moodDict['fear'], moodDict['disgust']]
 
-	let moodData = [
-		{title: 'Joy', label: 'Joy', value: 10, color: 'orange'},
-		{title: 'Sad', label: 'Sad', value: 3, color: 'purple'},
-		{title: 'Anger', label: 'Anger', value: 1, color: 'red'},
-		{title: 'Fear', label: 'Fear', value: 2, color: 'blue'},
-	]
-
-	const defaultLabelStyle = {
-		fontSize: '5px',
-		fontFamily: 'sans-serif',
-	  };
+	const data = {
+		labels: ['Joy', 'Sadness', 'Anger', 'Fear', 'Disgust'],
+		datasets: [
+			{
+				label: 'Emotion Occurence',
+				data: dataset,
+				backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+				borderColor: ['rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+				borderWidth: 1
+			}
+		]
+	}
 
 	return (
-		<div className="widget-xl mood-pie">
-			<h1>Overall Mood Chart</h1>
-			<PieChart
-				data={moodData}
-				label={({ dataEntry }) => dataEntry.title}
-        labelStyle={{
-          ...defaultLabelStyle,
-        }}
-			/>
+		<div className='pie-chart'>
+			<Pie data={data} options={options} />
 		</div>
 	)
 }
 
-export default MoodPie;
+export default MoodPie

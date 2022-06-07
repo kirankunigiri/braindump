@@ -7,6 +7,8 @@ import { Divider } from '@mantine/core';
 
 import { useFirestore, useFirestoreCollectionData } from 'reactfire';
 import { query, orderBy, collection } from 'firebase/firestore';
+import MoodLine from './StatsWidgets/MoodLine';
+import ActivityPies from './StatsWidgets/ActivityPies';
 
 function StatsView(props) {
 
@@ -25,13 +27,14 @@ function StatsView(props) {
 	return (
 		<div className='stats-view'>
 			<div className='stats-title'>Mood Trends</div>
+			<MoodLine uid={props.uid} entries={entries}/>
 			<MoodPie uid={props.uid} entries={entries}/>
 			<Divider my="md" />
 			
 			<div className='stats-title'>Mood & Activity Correlation</div>
+			<ActivityPies uid={props.uid} entries={entries}/>
 			{/* <YearGrid uid={props.uid} entries={entries}/>
 			<ActivityCount uid={props.uid} entries={entries}/> */}
-			<MoodPie uid={props.uid} entries={entries}/>
 		</div>
 	);
 }

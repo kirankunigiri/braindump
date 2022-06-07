@@ -7,6 +7,17 @@
 	font-weight: bold;
 }
 
+.pie-chart {
+	margin-top: 3rem;
+	max-width: 50rem;
+}
+.pie-chart-list {
+	columns: 300px;
+}
+.pie-activity {
+	/* grid-template-columns:  repeat(5, 1fr); */
+}
+
 
 .widget-xl {
 	width: 95%;
