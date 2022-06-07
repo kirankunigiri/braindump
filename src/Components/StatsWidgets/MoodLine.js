@@ -45,7 +45,7 @@ function MoodLine(props) {
 		]
 	}
 
-	return <Line options={options} data={data} />
+	return <div className='line-chart'> <Line options={options} data={data} /></div>
 }
 
 export default MoodLine

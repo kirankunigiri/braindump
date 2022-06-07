@@ -49,10 +49,6 @@ function JournalEditor(props) {
 	}, [props.entry])
 
 	// Change Handlers
-	const moodChangeHandler = (mood) => {
-		updateEntry({mood})
-	}
-
 	function journalTextAreaHandler(e) {
 		updateEntry({content: e.target.value})
 	}

@@ -1,5 +1,17 @@
 .stats-view {
 	padding: 3rem 4rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+.stats-view div {
+	width: 100%;
+}
+
+.stats-divider {
+	margin-top: 5rem;
+	margin-bottom: 5rem;
 }
 
 .stats-title {
@@ -12,10 +24,18 @@
 	max-width: 50rem;
 }
 .pie-chart-list {
-	columns: 300px;
+	/* columns: 30rem; */
+	/* width: fit-content !important; */
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(34rem, 1fr));
+	max-width: 100rem;
 }
 .pie-activity {
 	/* grid-template-columns:  repeat(5, 1fr); */
+}
+.line-chart {
+	max-width: 130rem;
+	margin-bottom: 3rem;
 }
 
 

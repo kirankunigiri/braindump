@@ -29,7 +29,7 @@ function StatsView(props) {
 			<div className='stats-title'>Mood Trends</div>
 			<MoodLine uid={props.uid} entries={entries}/>
 			<MoodPie uid={props.uid} entries={entries}/>
-			<Divider my="md" />
+			<Divider className='stats-divider' my="md" />
 			
 			<div className='stats-title'>Mood & Activity Correlation</div>
 			<ActivityPies uid={props.uid} entries={entries}/>
