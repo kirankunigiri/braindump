@@ -2,7 +2,7 @@ import './StatsView.css'
 
 import YearGrid from './StatsWidgets/YearGrid';
 import ActivityCount from './StatsWidgets/ActivityCount';
-// import MoodPie from './StatsWidgets/MoodPie';
+import MoodPie from './StatsWidgets/MoodPie';
 import { Divider } from '@mantine/core';
 
 import { useFirestore, useFirestoreCollectionData } from 'reactfire';
@@ -25,11 +25,13 @@ function StatsView(props) {
 	return (
 		<div className='stats-view'>
 			<div className='stats-title'>Mood Trends</div>
+			<MoodPie uid={props.uid} entries={entries}/>
 			<Divider my="md" />
+			
 			<div className='stats-title'>Mood & Activity Correlation</div>
 			{/* <YearGrid uid={props.uid} entries={entries}/>
 			<ActivityCount uid={props.uid} entries={entries}/> */}
-			{/* <MoodPie uid={props.uid} entries={entries}/> */}
+			<MoodPie uid={props.uid} entries={entries}/>
 		</div>
 	);
 }

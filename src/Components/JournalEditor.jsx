@@ -7,6 +7,7 @@ import { TextInput, MultiSelect, ActionIcon, Tooltip } from "@mantine/core";
 import { DatePicker } from '@mantine/dates';
 import Backend from "../Backend";
 import { TrashIcon, Cross1Icon } from "@modulz/radix-icons";
+import './JournalEditor.css';
 
 function JournalEditor(props) {
 
@@ -94,6 +95,10 @@ function JournalEditor(props) {
 				<div className="journal__heading-text">
 					<TextInput ref={titleInputRef} className="journal__heading-title" onChange={titleChangeHandler} placeholder="Entry Title"/>
 					<DatePicker excludeDate={(date) => date > new Date()} value={date} placeholder="Entry date" clearable={false} variant="unstyled" onChange={dateChangeHandler}/>
+					<div className="mood-stuff">
+						<div>Mood Score: 7/10</div>
+						<div>Emotions: Sad, Anger</div>
+					</div>
 				</div>
 			</div>
 			{allTags && <MultiSelect ref={tagsInputRef}

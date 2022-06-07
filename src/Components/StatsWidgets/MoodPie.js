@@ -12,17 +12,33 @@ function MoodPie(props) {
 		}
 	}
 
-	console.log(Object.entries(moodCounts));
-	const mapped = Object.entries(moodCounts).map((mood) => (
-		{title: mood[0], label: mood[0], value: mood[1], color: Backend.colorFromMood[parseInt(mood[0]-1)]}
-	))
-	console.log(mapped);
+	// console.log(Object.entries(moodCounts));
+	// const mapped = Object.entries(moodCounts).map((mood) => (
+	// 	{title: mood[0], label: mood[0], value: mood[1], color: Backend.colorFromMood[parseInt(mood[0]-1)]}
+	// ))
+	// console.log(mapped);
+
+	let moodData = [
+		{title: 'Joy', label: 'Joy', value: 10, color: 'orange'},
+		{title: 'Sad', label: 'Sad', value: 3, color: 'purple'},
+		{title: 'Anger', label: 'Anger', value: 1, color: 'red'},
+		{title: 'Fear', label: 'Fear', value: 2, color: 'blue'},
+	]
+
+	const defaultLabelStyle = {
+		fontSize: '5px',
+		fontFamily: 'sans-serif',
+	  };
 
 	return (
 		<div className="widget-xl mood-pie">
-			<h1>Mood Pie</h1>
+			<h1>Overall Mood Chart</h1>
 			<PieChart
-				data={mapped}
+				data={moodData}
+				label={({ dataEntry }) => dataEntry.title}
+        labelStyle={{
+          ...defaultLabelStyle,
+        }}
 			/>
 		</div>
 	)
